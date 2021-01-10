@@ -1,0 +1,108 @@
+<div class="WelcomeSplash">
+
+    <div class="WelcomeTitleContainer">
+        <h1 class="mat-display-4" style="text-align: center; padding-top: 25%;">Welcome to the RJC Jumpout System</h1>
+        <!-- <h2 class="WelcomeSubTitle">The one stop shop for all your origami, stamps, and coin collection needs</h2> -->
+    </div>
+
+    <div class="WelcomeScrollDown"> <button mat-flat-button color="accent" routerLink="/login">Login or Sign Up</button> </div>
+
+    <!-- <div class="animateSymbol">👇</div> -->
+    
+</div>
+
+<mat-divider></mat-divider>
+
+<div class="mat-elevation-z8" style="padding-left: 1em; padding-bottom: 0.5em;">
+  <h2>Upcoming Jumpout Meetings</h2>
+  
+</div>
+
+<!-- grid container for cards -->
+<div class="upcomingTrialsGrid" style="padding: 1em;">
+
+  <!-- card loop -->
+  <mat-card *ngFor="let meeting of fetchedTrials" class="example-card">
+    <mat-card-header>
+      <!-- <div mat-card-avatar class="example-header-image"></div> -->
+      <mat-card-title>{{meeting.location}}</mat-card-title>
+      <mat-card-subtitle>{{meeting.date | date: 'dd MMM yyyy'}}</mat-card-subtitle>
+    </mat-card-header>
+    <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+    <mat-card-content>
+
+      <h3 class="mat-h3" style="display: inline-flex;line-height: inherit;vertical-align: middle;"><mat-icon style="padding-right: 5px;">straighten</mat-icon>{{this.meeting.distance}} Jump Outs</h3>
+      <br>
+      <h3 class="mat-h3" style="display: inline-flex;line-height: inherit;vertical-align: middle;"><mat-icon style="padding-right: 5px;">access_time</mat-icon>Nominations Close {{this.meeting.closeDate | date: 'dd MMM yyyy h:mm a'}}</h3>
+      
+      
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="accent" (click)="nominateForTrial(meeting.meetingId)">NOMINATE</button>
+    </mat-card-actions>
+  </mat-card>
+
+</div>
+
+  <!-- spinner -->
+  <div style="padding: 1rem;text-align: center;">
+    <mat-spinner style="left: calc(50% - 50px);" color="accent" *ngIf="showSpinner"></mat-spinner>
+    <p color="accent" *ngIf="showSpinner">Loading Upcoming Meetings</p>
+    <p *ngIf="(fetchedTrials == null || fetchedTrials.length <= 0) && showSpinner==false" style="text-align: center;">No upcoming trials</p>
+  </div>
+
+<div style="text-align: center;">
+  <button mat-raised-button color="primary" routerLink="/trial_dates" style="width: 250px;height: 40px;border-radius: 30px;margin-top: 1em;margin-bottom: 1em;">VIEW MORE</button>
+</div>
+
+<!-- <div style="height: 100vh;">
+
+    <div style="left: 40%;
+    right: 40%;
+    background-color: red;">
+
+    </div>
+
+</div> -->
+
+<!-- <mat-card class="home-card">
+    <mat-card-content class="home-card-content">
+        <img mat-card-image
+          src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+          alt="Photo of a Shiba Inu">
+        <div>
+          <div>Second</div>
+          <div>Third</div>
+          <div>Fourth</div>
+        </div>
+      </mat-card-content>
+
+  </mat-card> -->
+
+
+
+
+
+
+  <!-- <mat-grid-list cols="2" rowHeight="1:1" style="    min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;">
+    <mat-grid-tile style="background-color: red;">
+        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    </mat-grid-tile>
+    <mat-grid-tile style="background-color: blue;">
+        <mat-card>
+            
+            <mat-card-content>
+              <p>
+                Welcome to the RJC Trialing System
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-flat-button color="accent">Login or Signup</button>
+            </mat-card-actions>
+          </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list> -->

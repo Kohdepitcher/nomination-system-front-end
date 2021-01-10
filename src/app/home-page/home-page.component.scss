@@ -1,0 +1,196 @@
+// .home-card {
+//     border-radius: 4px;
+//     max-width: 600px;
+//     max-height: 1000px;
+//     margin-top: 100px;
+//     padding: 0;
+//     margin: 0 auto;
+
+//     .mat-card-image {
+//       margin: 0;
+//       height: 100%;
+//     }
+
+//     .home-card-content {
+//       display: flex;
+//       justify-content: space-between;
+
+//       & > * {
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//         flex: auto;
+//         max-width: 50%;
+
+//         &:first-child {
+//           border-top-left-radius: 4px;
+//           border-bottom-left-radius: 4px;
+//         }
+
+//         &:last-child {
+//           flex-direction: column;
+//           align-items: start;
+//           padding: 8px;
+//         }
+//       }
+//     }
+// }
+
+.home-card {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .WelcomeSplash {
+    display: block;
+    width: 100%;
+    height: 80vh;
+    min-height: 55em;
+    /* height: 60vh; */
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: -1;
+    overflow: hidden;
+
+    background: linear-gradient(rgb(33, 33, 33,),rgba(47, 47, 47, 0.73)), url(/assets/img/b881660562z1_20181106080236_000g2u1abiaf4-0-2mfbvunvjww0rodt8r2_fct2275x1708x45x9_t1880.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.WelcomeImage {
+    width: 100%;
+    height: auto;
+    z-index: -10;
+}
+
+.WelcomeTitleContainer {
+    margin: auto;
+    width: 50%;
+}
+
+// .WelcomeTitle {
+//     color:black;
+//     text-align:center;
+//     font-size: 6em;
+//     padding-top: 1.5em;
+//     text-shadow: 1px 2px 10px #666;
+// }
+
+.WelcomeTitle::after {
+    background: white;
+    content: '';
+    display: block;
+    height: 8px;
+    margin-left: -295px;
+    left: 50%;
+    right: 50%;
+    position: absolute;
+    width: 6.2em;
+}
+
+.WelcomeSubTitle {
+    color: black;
+    text-align: center;
+    padding-top: 0em;
+}
+
+.WelcomeScrollDown {
+    color: black;
+    text-align: center;
+    padding-top: 0em;
+}
+
+.animateSymbol {
+
+    position: relative;
+    top: 0.5em;
+    text-align: center;
+    font-size: 5em;
+
+    -webkit-animation: action 1s infinite  alternate;
+        animation: action 1s infinite  alternate;
+    }
+    @-webkit-keyframes action {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-30px); }
+    }
+    @keyframes action {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-30px); }
+}
+
+.MapTitle {
+    padding-top: 1em;
+    height: 6em;
+    font-size: 2em;
+    position: relative;
+    text-align: center;
+    margin: auto;
+    color: black;
+    /* bottom: 4em; */
+    
+}
+
+.MapTitleText::after {
+    background: #84c6b7;
+    /* bottom: 60px; */
+    content: '';
+    display: block;
+    height: 8px;
+    margin-left: -158px;
+    left: 50%;
+    right: 50%;
+    position: absolute;
+    width: 5em;
+}
+
+.MapContainer {
+    position: relative;
+    /* top: -10em; */
+    margin: auto;
+    width: 60%;
+    min-width: 60%;
+    height: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0px 20px 60px 21px rgba(133,133,133,0.77);
+    -moz-box-shadow: 0px 20px 60px 21px rgba(133,133,133,0.77);
+    box-shadow: 0px 20px 60px 21px rgba(133,133,133,0.77);
+    background-color: white;
+    border-color:black;
+    border-style: solid;
+    border-radius: 10px;
+}
+
+.MapSubTitle {
+    text-align: center;
+    padding: 1em;
+}
+
+.MapImage {
+    display: block;
+    margin: auto;
+    /*width: 90%;*/
+}
+
+.upcomingTrialsGrid {
+    display: grid;
+//   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+grid-template-columns: repeat(auto-fill, minmax(24em, 1fr));
+  grid-gap: 1rem;
+}
+
+// phone
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    
+    .upcomingTrialsGrid {
+        grid-template-columns: repeat(auto-fill, minmax(80vw, 1fr));
+    }
+
+  }

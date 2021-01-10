@@ -1,0 +1,100 @@
+<div class="bodyDiv">
+
+  <div class="example-container mat-elevation-z8">
+
+    <!-- header label -->
+    <h2 class="mat-display-2" style="margin: 0; margin-left: 0.5em; padding-top: 0.5em;padding-bottom: 0.5em;">Users</h2>
+
+    <!-- table filter -->
+    <div style="margin-left: 1.5em; margin-right: 1.5em;">
+      <mat-form-field style="width: 100%;">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Search for user">
+      </mat-form-field>
+    </div>
+
+    <div class="tableDiv">
+
+      <!-- meeting table -->
+      <mat-table userTable [dataSource]="dataSource" matSort matSortActive="displayName" matSortDirection="asc" [trackBy]="" class="animate" style="min-width: 800px; width: 100%;">
+
+        <ng-container matColumnDef="displayName" sticky>
+          <mat-header-cell *matHeaderCellDef mat-sort-header > Name </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{ user.displayName }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{ user.email }} </mat-cell>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="uid">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> UID </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{ user.uid }} </mat-cell>
+        </ng-container> -->
+
+        <ng-container matColumnDef="role">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
+          <mat-cell *matCellDef="let user">
+
+            <span style="display: inline-block; padding: .1em;
+          /* font-size: 75%; */ font-weight: 700;
+          /* line-height: 1; */ 
+          text-align: center; 
+          white-space: nowrap; 
+          vertical-align: baseline; 
+          /* border-radius: .25rem; */ 
+          padding-right: .6em; 
+          padding-left: .6em; 
+          border-radius: 10rem;"
+              [ngStyle]="user.role=='Role Not Set' ? {'background-color':'#dc3545'} : {'background-color': '#007bff'}">
+
+
+              {{ user.role.toUpperCase()}}</span>
+
+          </mat-cell>
+        </ng-container>
+
+
+
+
+
+        <ng-container matColumnDef="edit">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let user">
+            <button mat-button color="accent" (click)="openUserDialog(user)">
+              <mat-icon>edit</mat-icon>Edit User
+            </button>
+            <!-- <button mat-button color="warn" (click)="handleDelete(trialDate.meetingId)">
+            <mat-icon>delete</mat-icon>Delete
+          </button>
+          <button mat-button color="primary" (click)="viewNominationsForTrial(trialDate.meetingId)">
+            <mat-icon>remove_red_eye</mat-icon>View Nominations
+          </button> -->
+          </mat-cell>
+        </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" class="animate"></mat-row>
+
+
+
+      </mat-table>
+    </div>
+
+    <!-- spinner -->
+    <div style="padding: 1rem;">
+      <mat-spinner style="left: calc(50% - 100px);" color="accent" *ngIf="showSpinner"></mat-spinner>
+      <p *ngIf="(dataSource == null || dataSource.data.length == 0) && showSpinner==false" style="text-align: center;"> No users to show for the active filter</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- add button -->
+<button mat-fab style="bottom: 5%; right:5%; position: absolute;" aria-label="Add new trial date"
+  (click)="openUserDialog()">
+  <mat-icon style="vertical-align: unset;">add</mat-icon>
+</button>

@@ -1,0 +1,129 @@
+// Import material theming functions
+@import '~@angular/material/theming';
+// @import '';
+
+// Copy the palettes from your selected theme (usually theme.scss).
+$app-primary: mat-palette($mat-grey);
+$app-accent:  mat-palette($mat-green, A200, A100, A400);
+$app-warn:    mat-palette($mat-pink);
+
+.countdown {
+    width: 50%;
+   //  height: 100px;
+    background: black;
+
+    .measurements {
+      color: white;
+      // margin-right: 5px;
+      // padding: 10px;
+   }
+
+   .divider {
+   //  font-size: 30px;
+   }
+}
+
+// .mat-card-header.mat-card-header-text {
+//    margin: 0;
+// }
+
+.mat-card:hover {
+   background-color: mat-color($app-accent);
+   color: rgba(0, 0, 0, 0.87);
+
+   .mat-icon {
+      color: rgba(0, 0, 0, 0.87)
+   }
+
+   .mat-card-subtitle {
+      color: rgba(0, 0, 0, 0.87)
+   }
+}
+
+.mat-icon {
+   vertical-align: middle;
+   padding-right: 5px;
+}
+
+::ng-deep.countdown {
+   width: 100%;
+   height: 100px;
+   //background: black;
+   //flex: auto;
+
+   .measurements {
+     color: white;
+     margin-right: 5px;
+     //padding: 10px;
+     //flex: auto;
+
+     .measurements-number {
+      display: inline;
+      }
+      .measurements-text {
+         display: inline;
+      }
+  }
+
+  .divider {
+   font-size: 30px;
+  }
+}
+
+.trainer-nominations-table {
+   width: 100%;
+   overflow: auto;
+   display: inline-block;
+}
+
+.mat-row, .mat-header-row {
+   width: 100%;
+   min-width: 2000px;
+}
+
+.mat-header-cell, .mat-cell {
+   min-width: 150px;
+}
+
+// tablets
+@media screen and (min-width: 600px) {
+   // .bodyDiv {
+   //     margin-left: 0em;
+   //     margin-right: 0em;
+   //     margin-top: 0em;
+   // }
+
+   // .mat-table-sticky:first-child {
+   //     border-right: 1px solid #e0e0e0;
+   //   }
+
+   .trainer-nominations-table {
+      display: inline-block;
+   }
+   
+}
+
+// desktops
+@media screen and (min-width: 768px) { 
+
+   // .bodyDiv {
+   //     margin-left:1.5em;
+   //     margin-right:1.5em; 
+   //     margin-top: 3em;
+   // }
+
+   // .mat-table-sticky:first-child {
+   //     border-right: 0px solid #e0e0e0;
+   //   }
+
+   .card-container {
+      margin-left: 30%; 
+      margin-right: 30%; 
+      margin-top: 3em;
+   }
+
+   .trainer-nominations-table {
+      display: table;
+   }
+
+}

@@ -1,0 +1,68 @@
+<p>all-nominations works!</p>
+
+<h2 *ngIf="this.associatedTrialMeeting != null">For trial meeting located at {{this.associatedTrialMeeting.location}} on the date of {{this.associatedTrialMeeting.date | date: 'dd MMM yyyy'}}</h2>
+
+<mat-table #table [dataSource]="dataSource" matSort [trackBy]="trackByUid" class="animate">
+  
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+      <mat-cell *matCellDef="let nomination"> {{ nomination.nominationID }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="horseName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Horse Name </mat-header-cell>
+        <mat-cell *matCellDef="let nomination"> {{ nomination.horseName }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="horseClass">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Class </mat-header-cell>
+        <mat-cell *matCellDef="let nomination"> {{ nomination.horseClass }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="horseAge">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Age </mat-header-cell>
+        <mat-cell *matCellDef="let nomination"> {{ nomination.horseAge }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="jockey">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Jockey </mat-header-cell>
+        <mat-cell *matCellDef="let nomination"> {{ nomination.jockey }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="trainer">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Trainer </mat-header-cell>
+        <mat-cell *matCellDef="let nomination"> {{ nomination.user.name }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="isScratched">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Scratched </mat-header-cell>
+        <mat-cell *matCellDef="let nomination"> {{ nomination.isScratched }} </mat-cell>
+      </ng-container>
+
+
+      <!-- <ng-container matColumnDef="trainer">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+        <mat-cell *matCellDef="let nomination"> {{ nomination.nominationID }} </mat-cell>
+      </ng-container> -->
+
+
+    <!-- <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
+        <mat-cell *matCellDef="let trialDate"> 
+          <button mat-button  color="primary" (click)="openTrialDialog(trialDate)"><mat-icon>edit</mat-icon>Edit</button> 
+          <button mat-button  color="warn" (click)="handleDelete(trialDate.meetingId)"><mat-icon>delete</mat-icon>Delete</button>
+        </mat-cell>
+        
+    </ng-container> -->
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" class="animate"></mat-row>
+
+    
+
+  </mat-table>
+
+  <p *ngIf="dataSource.data.length == 0" style="text-align: center;"> No nominations to show for this trial meeting</p>
+
+  <!-- spinner -->
+  <div style="padding: 1rem;"><mat-spinner style="left: calc(50% - 100px);" color="accent" *ngIf="showSpinner"></mat-spinner></div>
