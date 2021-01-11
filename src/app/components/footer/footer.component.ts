@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-footer',
   template: `
     <footer class="footer" >
-        <div class="container" style="background-color: black;">
+        <div class="container" style="background-color: rgb(17, 17, 17); padding: 1em">
 
         <ul class="ulList">
           <li><a href="https://www.linkedin.com/in/kohdepitcherkelly">Privacy Policy</a></li>
@@ -22,7 +22,7 @@ import { Component, OnInit } from '@angular/core';
         </div>
         </footer>
   `,
-  styles: [".ulList{list-style: none;} .ulList > li{display: inline-block; padding-left: 5px; padding-right: 5px;} .ulList > li > a {color: rgba(255,255,255,.5)}"]
+  styles: [".ulList{list-style: none; text-align: center;} .ulList > li{display: inline-block; padding-left: 5px; padding-right: 5px;} .ulList > li > a {color: rgba(255,255,255,.5)}"]
 })
 export class FooterComponent implements OnInit {
 
