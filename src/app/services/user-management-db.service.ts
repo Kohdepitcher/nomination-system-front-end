@@ -29,10 +29,42 @@ export class UserManagementDBService {
 
     //return observable containing an array of users
     //parse the json respone into the trial meeting object
-    return this.http.get<AFUser[]>(`${this.APIPath}`)
+    return this.http.get<AFUser>(`${this.APIPath}`)
 
       //pipe the data to do any manipulations
       .pipe(
+
+          /*
+              This request returns an array of nested users with matching db records
+
+              Therefore it needs to be mapped twice to get the nested user object to then be built up into an array
+
+              users": [
+                        {
+                          "user": {
+                              "uid": "",
+                              "email": "",
+                              "displayName": "",
+                              "role": "",
+                              "lastSignInTime": "",
+                              "creationTime": ""
+                          },
+                           "db": {
+                           }
+          */
+          
+        //map the response error
+        map(responseData => {
+
+          //map the root level array json key 'users'
+          return responseData['users'].map(item => {
+
+            //create an user using the next level json key
+            //combine these into a array of users to be returned to the calling funciton
+            return <AFUser[]>item['user']
+          })
+          
+        }),
       
         //catch any errors that may arise while fetching
         catchError(errorResponse => {
@@ -72,10 +104,8 @@ export class UserManagementDBService {
     //init a user
     const patchUser: AFUser = { displayName: name, email: email, role: role}
 
-    console.log(role)
-
     //patch the user with specificed ID
-    return this.http.patch<AFUser>(`${this.APIPath}/${userID}`,
+    return this.http.patch(`${this.APIPath}/${userID}`,
       patchUser,
       {
         observe: 'response'
@@ -94,6 +124,10 @@ export class UserManagementDBService {
   }
 
   //delete user
+  deleteUser(userUID: string) {
 
+    this.http.delete(`${this.APIPath}/${userUID}`)
+
+  }
 }
 
