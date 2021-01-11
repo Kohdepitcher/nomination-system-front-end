@@ -61,7 +61,8 @@ export class UserManagementDBService {
 
             //create an user using the next level json key
             //combine these into a array of users to be returned to the calling funciton
-            return <AFUser[]>item['user']
+            // return <AFUser[]>item['user']
+            return <AFUser[]>item
           })
           
         }),
@@ -77,25 +78,28 @@ export class UserManagementDBService {
   //get specific user
 
   //create new user
-  async createsUser(name: string, email: string) {
+  createsUser(name: string, email: string) {
 
-    const newUser = { displayName: name, email: email }
+    const newUser: AFUser = { displayName: name, email: email }
 
-    return this.http.post<AFUser>(`${this.APIPath}`,
-      newUser,
-      {
-        observe: 'response'
-      }
+    return this.http.post<AFUser>(`${this.APIPath}`, newUser, { observe: 'response' }).pipe(
+
+        //map the response into an AFUser ob
+        map(responseData => {
+          
+          return <AFUser>responseData.body['user'];
+
+        })
     )
 
-      .subscribe(
-        responseData => {
-          console.log(responseData);
-        },
-        error => {
-          //this.error.next(error.message);
-        }
-      );
+      // .subscribe(
+      //   responseData => {
+      //     console.log(responseData);
+      //   },
+      //   error => {
+      //     //this.error.next(error.message);
+      //   }
+      // );
   }
 
   //update user
@@ -105,7 +109,7 @@ export class UserManagementDBService {
     const patchUser: AFUser = { displayName: name, email: email, role: role}
 
     //patch the user with specificed ID
-    return this.http.patch(`${this.APIPath}/${userID}`,
+    return this.http.patch<AFUser>(`${this.APIPath}/${userID}`,
       patchUser,
       {
         observe: 'response'
@@ -124,9 +128,9 @@ export class UserManagementDBService {
   }
 
   //delete user
-  deleteUser(userUID: string) {
+  deleteUser(userID: string) {
 
-    this.http.delete(`${this.APIPath}/${userUID}`)
+    return this.http.delete(`${this.APIPath}/${userID}`);
 
   }
 }
