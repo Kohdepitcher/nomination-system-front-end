@@ -22,9 +22,13 @@ import { ShellComponent } from './shell/shell.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
+
+import { MatChipsModule } from "@angular/material/chips";
+
 // import { SubmitNominationsComponent } from './dialogs/dialogs//submit-nominations.component';
 
 // import {MatIconRegistry} from '@angular/material/icon';
@@ -50,7 +54,9 @@ const modules = [
   MatProgressSpinnerModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatGridListModule
+  MatGridListModule,
+  MatChipsModule,
+  MatProgressBarModule
   //MatIconRegistry,
 ];
 
