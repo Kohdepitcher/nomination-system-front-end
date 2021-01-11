@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 
-import { MatSort, MatTableDataSource, MatTable, DateAdapter } from '@angular/material';
+import { MatSort, MatTableDataSource, MatTable, DateAdapter} from '@angular/material';
 
 //import the user database service
 import { UserManagementDBService } from '../../services/user-management-db.service';
@@ -92,12 +92,12 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     });
 
     //subscribe to the dialog afterclose notification and grab the result
-  dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(result => {
 
     //check to see if there is a result from closing the dialogue
     if (result) {
 
-      //if the returned trial meeting is new
+      //if the returned user is new
       if(result.isNew == true) {
 
         //create a new close date
@@ -121,42 +121,42 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       else if (result.isNew == false) {
 
         
-      //   //create a new close date
-      //   //set the hours and minutes from the result passed back from new meeting dialog
-      //   // const tempCloseDate = new Date(result.trial.closeDate);
+        //   //create a new close date
+        //   //set the hours and minutes from the result passed back from new meeting dialog
+        //   // const tempCloseDate = new Date(result.trial.closeDate);
 
-      //   // const newCloseDate = new Date(tempCloseDate.getFullYear(), tempCloseDate.getMonth(), tempCloseDate.getDate(), result.hours, result.minutes, 0, 0);
+        //   // const newCloseDate = new Date(tempCloseDate.getFullYear(), tempCloseDate.getMonth(), tempCloseDate.getDate(), result.hours, result.minutes, 0, 0);
 
-      //   const newCloseDate = new Date(result.trial.closeDate).setHours(result.hours, result.minutes, 0, 0);
+        //   const newCloseDate = new Date(result.trial.closeDate).setHours(result.hours, result.minutes, 0, 0);
 
-      //   //update the trial in the DB with the same id
-      //   this.databaseService.updateTrialDate(result.trial.meetingId, new Date(result.trial.date), new Date(newCloseDate), result.trial.location, result.trial.startTime, result.trial.distance)
+        //   //update the trial in the DB with the same id
+        //   this.databaseService.updateTrialDate(result.trial.meetingId, new Date(result.trial.date), new Date(newCloseDate), result.trial.location, result.trial.startTime, result.trial.distance)
 
-      //   // //get the index of the updated element
-      //   // var indexOfUpdatedTrial = this.dataSource.data.findIndex(item => item.meetingId == result.trial.meetingId)
-      //   // console.log(indexOfUpdatedTrial)
+        //   // //get the index of the updated element
+        //   // var indexOfUpdatedTrial = this.dataSource.data.findIndex(item => item.meetingId == result.trial.meetingId)
+        //   // console.log(indexOfUpdatedTrial)
 
-      //  this.updateTableRow(result.trial, this.findIndexOfRow(result.trial));
+        //  this.updateTableRow(result.trial, this.findIndexOfRow(result.trial));
 
-      
-    //update the user
-    this.databaseService.updateUser(result.user.uid, result.user.displayName, result.user.email, result.user.role).subscribe(result => {
         
-        //show a success message
-        this.snack.notification("Updated Existing User","OK")
+          //update the user
+          this.databaseService.updateUser(result.user.uid, result.user.displayName, result.user.email, result.user.role).subscribe(result => {
+              
+              //show the success message returned from the server
+              this.snack.notification(result.body['message'],"OK")
 
-      }, error => {
-        console.log(error);
+            }, error => {
+              
 
-        //show a breif error message to user
-        this.snack.notification(`Error updating User: error ${error.status}: ${error.statusText} ${error.error.message}`, "OK")
-      })
+              //show a breif error message to user
+              this.snack.notification(`Error updating User: error ${error.status}: ${error.statusText} ${error.error.message}`, "OK")
+            })
 
-      
+        
+        }
+
+        
       }
-
-      
-    }
   });
 
   }
