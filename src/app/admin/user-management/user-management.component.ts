@@ -173,10 +173,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     toBeUpdatedUser.role = user.role;
 
     this.table.renderRows();
-
-    this.dataSource.man
-
-    console.log(toBeUpdatedUser);
     
 
   }
