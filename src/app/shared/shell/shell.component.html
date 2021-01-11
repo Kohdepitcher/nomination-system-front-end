@@ -9,9 +9,9 @@
       <mat-toolbar>Menu</mat-toolbar>
       <mat-nav-list>
        
-        <a mat-list-item routerLink="/" (click)="drawer.close()">Home</a>
+        <!-- <a mat-list-item routerLink="/" (click)="drawer.close()">Home</a> -->
         <a mat-list-item routerLink="/login" (click)="drawer.close()">Login</a>
-        <a mat-list-item routerLink="/trial_dates" (click)="drawer.close()">Trial Meetings</a>
+        <a mat-list-item routerLink="/trial_dates" (click)="drawer.close()">Jumpout Meetings</a>
         <a *ngIf="authService.isUserAdmin == true" mat-list-item routerLink="/admin/user-management" (click)="drawer.close()">Users</a>
   
       </mat-nav-list>
@@ -20,7 +20,7 @@
   
     <!-- TOP TOOLBAR-->
   
-      <mat-toolbar>
+      <mat-toolbar *ngIf="afAuth.authState | async as user">
         <button 
           type="button"
           aria-label="Toggle sidenav"
@@ -33,32 +33,36 @@
         </button>
 
         <!-- <img src="assets/img/logo.png"> -->
-        <span class="logo" routerLink="/">RJC Jumpout System</span> 
+        <!-- <span class="logo" routerLink="/">RJC Jumpout System</span>  -->
+        <span class="logo">RJC Jumpout System</span> 
         
   
         <span class="fill-space"></span>
         <div *ngIf="!(isHandset$ | async)">
-          <a mat-button color='primary' routerLink="/trial_dates">Trial Meetings</a>
+          <a mat-button color='primary' routerLink="/trial_dates">Jumpout Meetings</a>
           
           <a *ngIf="authService.isUserAdmin == true" color="primary" mat-button routerLink="/admin/user-management">Users</a>
-
+<!-- 
           <a mat-button color='primary' routerLink="/login">My Account</a>
   
           <a mat-stroked-button color='primary' routerLink="/login">Login</a>
-          <a  mat-stroked-button color='primary' routerLink="/login">Log out</a>
+          <a  mat-stroked-button color='primary' routerLink="/login">Log out</a> -->
   
         </div>
   
         <!-- DROPDOWN MENU -->
   
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-          <mat-icon>more_vert</mat-icon>
+        <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" style="margin-left: 1em;">
+          {{ authService.userInitials }}
         </button>
         
         <mat-menu #menu="matMenu">
           <a mat-menu-item href="https://fireship.page.link/slack">
-            <i>💬</i>
-            <span>Chat on Slack</span>
+            <span>My Account</span>
+          </a>
+          <mat-divider></mat-divider>
+          <a mat-menu-item (click)="authService.SignOut()">
+            <span>Sign out</span>
           </a>
         </mat-menu>
       </mat-toolbar>
