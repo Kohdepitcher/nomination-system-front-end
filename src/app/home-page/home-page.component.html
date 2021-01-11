@@ -1,11 +1,26 @@
 <div class="WelcomeSplash">
 
     <div class="WelcomeTitleContainer">
-        <h1 class="mat-display-4" style="text-align: center; padding-top: 25%;">Welcome to the RJC Jumpout System</h1>
+
+      <div style="max-width: 600px; margin: 0 auto; text-align: center; margin-top: 3.5em;">
+        <img src="../../assets/svg/logo.svg" style="vertical-align: middle;padding-bottom: 32px;">
+
+        <h1>
+          Welcome to RJC Jumpouts
+        </h1>
+        
+        <div style="font-size: 24px; line-height: 30px; letter-spacing: .4px;">
+          With <strong>RJC Jumpouts</strong> you can easily view upcoming jumpout dates, and nominate for jumpouts hosted by the RJC
+        </div>
+      </div>
+      
+      <div class="WelcomeScrollDown" style="margin-top: 3em;"> <button mat-flat-button color="accent" routerLink="/login">Login or Sign Up</button> </div>
+
+        <!-- <h1 class="mat-display-4" style="text-align: center; padding-top: 25%;">Welcome to the RJC Jumpout System</h1> -->
         <!-- <h2 class="WelcomeSubTitle">The one stop shop for all your origami, stamps, and coin collection needs</h2> -->
     </div>
 
-    <div class="WelcomeScrollDown"> <button mat-flat-button color="accent" routerLink="/login">Login or Sign Up</button> </div>
+    
 
     <!-- <div class="animateSymbol">👇</div> -->
     
@@ -15,6 +30,7 @@
 
 <div class="mat-elevation-z8" style="padding-left: 1em; padding-bottom: 0.5em;">
   <h2>Upcoming Jumpout Meetings</h2>
+  <h4>{{ durationPeriod }}</h4>
   
 </div>
 

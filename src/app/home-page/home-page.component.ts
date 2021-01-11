@@ -48,4 +48,15 @@ export class HomePageComponent implements OnInit {
     })
   }
 
+  get durationPeriod(): String {
+
+    const today = new Date;
+
+    const endDate = new Date
+    endDate.setDate(today.getDate() + 28)
+
+    return `Today  -  ${endDate.toLocaleDateString("en-AU")}`
+
+  }
+
 }
