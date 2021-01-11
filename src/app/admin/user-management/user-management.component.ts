@@ -37,9 +37,10 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<AFUser>;
 
   //keep track of if the spinner should be shown
-  showSpinner: boolean = true;
+  showSpinner: boolean = false;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatTable,{static:true}) table: MatTable<any>;
 
   constructor(
     private databaseService: UserManagementDBService,
@@ -51,7 +52,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
 
   }
 
-  ngAfterViewInit() {
+  loadTableData() {
 
     //subscribe to gettingTrialDates() method
     this.databaseService.getAllUsers().subscribe(users => {
@@ -72,8 +73,10 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
         this.snack.notification("Error Fetching Users", "OK")
     })
 
+  }
 
-
+  ngAfterViewInit() {
+    this.loadTableData();
   }
 
   //table filter
@@ -100,53 +103,40 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       //if the returned user is new
       if(result.isNew == true) {
 
-        //create a new close date
-        //set the hours and minutes from the result passed back from new meeting dialog
-        //const newCloseDate = new Date(result.trial.closeDate).setHours(result.hours, result.minutes, 0, 0);
+        this.databaseService.createsUser(result.user.displayName, result.user.email).subscribe(httpResult => {
 
-        // const tempCloseDate = new Date(result.trial.closeDate);
+          //show the success message returned from the server
+          this.snack.notification("Created user: " + httpResult.displayName,"OK")
 
-        // const newCloseDate = new Date(tempCloseDate.getFullYear(), tempCloseDate.getMonth(), tempCloseDate.getDate(), result.hours, result.minutes, 0, 0);
+          // this.updateRowData(httpResult)
 
-        // //create a new trial date in firestore
-        // this.databaseService.createTrialDate(new Date(result.trial.date), new Date(newCloseDate), result.trial.location, result.trial.startTime, result.trial.distance);
+          this.loadTableData();
 
-        // this.addTableRow(result.trial);
+        }, error => {
 
-        this.snack.notification("Created New User","OK")
+          //show a breif error message to user
+          this.snack.notification(`Error creating User: error ${error.status}: ${error.statusText} ${error.error.message}`, "OK")
+        })
+
+        
 
       }
 
       //else if the returned trial meeting isnt new
       else if (result.isNew == false) {
-
-        
-        //   //create a new close date
-        //   //set the hours and minutes from the result passed back from new meeting dialog
-        //   // const tempCloseDate = new Date(result.trial.closeDate);
-
-        //   // const newCloseDate = new Date(tempCloseDate.getFullYear(), tempCloseDate.getMonth(), tempCloseDate.getDate(), result.hours, result.minutes, 0, 0);
-
-        //   const newCloseDate = new Date(result.trial.closeDate).setHours(result.hours, result.minutes, 0, 0);
-
-        //   //update the trial in the DB with the same id
-        //   this.databaseService.updateTrialDate(result.trial.meetingId, new Date(result.trial.date), new Date(newCloseDate), result.trial.location, result.trial.startTime, result.trial.distance)
-
-        //   // //get the index of the updated element
-        //   // var indexOfUpdatedTrial = this.dataSource.data.findIndex(item => item.meetingId == result.trial.meetingId)
-        //   // console.log(indexOfUpdatedTrial)
-
-        //  this.updateTableRow(result.trial, this.findIndexOfRow(result.trial));
-
         
           //update the user
-          this.databaseService.updateUser(result.user.uid, result.user.displayName, result.user.email, result.user.role).subscribe(result => {
+          this.databaseService.updateUser(result.user.uid, result.user.displayName, result.user.email, result.user.role).subscribe(httpResult => {
               
               //show the success message returned from the server
-              this.snack.notification(result.body['message'],"OK")
+              this.snack.notification(httpResult.body['message'],"OK")
+              
+              //send the result of the dialogue as the server doesnt return a user object but instead a message
+              // this.updateRowData(result.user as AFUser)
+
+              this.loadTableData();
 
             }, error => {
-              
 
               //show a breif error message to user
               this.snack.notification(`Error updating User: error ${error.status}: ${error.statusText} ${error.error.message}`, "OK")
@@ -158,6 +148,41 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
         
       }
   });
+
+  }
+
+  //add new row to table
+  addRowData(user: AFUser) {
+
+    this.dataSource.data.push(user)
+    this.table.renderRows();
+
+  }
+
+  //update table row with new data
+  updateRowData(user: AFUser) {
+
+    //find the matching user in the datasource based on the user's uid
+    const toBeUpdatedUser = this.dataSource.data.find((element) => {
+      return element.uid = user.uid
+    })
+
+    //update the properties of the user entry in the datasource with the properties passed back
+    toBeUpdatedUser.displayName = user.displayName;
+    toBeUpdatedUser.email = user.email;
+    toBeUpdatedUser.role = user.role;
+
+    this.table.renderRows();
+
+    this.dataSource.man
+
+    console.log(toBeUpdatedUser);
+    
+
+  }
+
+  //delete table row
+  deleteRowData(row_obj) {
 
   }
 
