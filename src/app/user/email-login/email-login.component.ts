@@ -38,7 +38,7 @@ export class EmailLoginComponent implements OnInit {
 
   ngOnInit() {
 
-    this.redirectURL = this.route.snapshot.queryParams['returnURL'] || '/'
+    this.redirectURL = this.route.snapshot.queryParams['returnURL'] || '/trial_dates'
 
     console.log(this.redirectURL);
 
