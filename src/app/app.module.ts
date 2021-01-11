@@ -16,6 +16,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http'
 import { AuthTokenHttpInterceptorProvider } from './http-interceptors/auth-token.interceptor';
+import { LoaderInterceptorProvider } from './http-interceptors/http-loader.interceptor';
 import { UserDialogComponent } from './admin/user-management/dialogs/user-dialog.component';
 
 import { FormsModule } from '@angular/forms';
@@ -56,6 +57,7 @@ import { AdminGuard } from "./user/admin.guard";
   ],
   providers: [
     AuthTokenHttpInterceptorProvider,
+    LoaderInterceptorProvider,
     AdminGuard
   ],
   bootstrap: [AppComponent],
