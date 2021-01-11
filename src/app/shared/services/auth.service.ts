@@ -4,6 +4,7 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
+import { initial } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -100,9 +101,19 @@ export class AuthService {
   // }
 
     // Returns true when user is looged in and email is verified
-    get isLoggedIn(): boolean {
+    get isLoggedInAndVerified(): boolean {
       const user = JSON.parse(localStorage.getItem('user'));
       return (user !== null && user.emailVerified !== false) ? true : false;
+    }
+
+    get isLoggedIn(): boolean {
+      const user = JSON.parse(localStorage.getItem('user'));
+      return (user !== null) ? true : false;
+    }
+
+    get isEmailVerified(): boolean {
+      const user = JSON.parse(localStorage.getItem('user'));
+      return (user.emailVerified !== false) ? true : false;
     }
 
     get userRole(): string {
@@ -117,6 +128,32 @@ export class AuthService {
     get isUserTrainer(): boolean {
       const role = JSON.parse(localStorage.getItem('role'));
       return (role !== null && role == "user") ? true : false;
+    }
+
+    get userInitials(): string {
+
+      //get user from local storage
+      const user = JSON.parse(localStorage.getItem('user'));
+      
+      //get a reference to the user's display name
+      const userName = user.displayName;
+
+      //create a names array which is the display name split by a space character
+      const names: [String] = userName.split(' ');
+
+      //empty string to store initials
+      var initials = "";
+
+      //iterate over each name
+      names.forEach(element => {
+
+        //append the first character of each string to the initials string
+        initials += element.substring(0,1).toUpperCase();
+
+      });
+
+      //return the user's initials to be displayed
+      return initials;
     }
 
   
@@ -161,7 +198,7 @@ export class AuthService {
     return this.afAuth.auth.signOut().then(() => {
       localStorage.removeItem('user');
       localStorage.removeItem('role');
-      this.router.navigate(['sign-in']);
+      this.router.navigate(['login']);
     })
   }
 
