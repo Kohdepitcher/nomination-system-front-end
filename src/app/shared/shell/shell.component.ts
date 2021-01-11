@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 import { AuthService } from "./../../shared/services/auth.service";
 
@@ -18,7 +19,7 @@ export class ShellComponent {
     shareReplay()
   );
 
-  constructor(private breakpointObserver: BreakpointObserver, public authService: AuthService) {
+  constructor(private breakpointObserver: BreakpointObserver, public authService: AuthService, public afAuth: AngularFireAuth) {
 
     
 
