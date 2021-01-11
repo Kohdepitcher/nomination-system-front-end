@@ -13,31 +13,37 @@
       </mat-form-field>
     </div>
 
+    
+
     <div class="tableDiv">
 
       <!-- meeting table -->
       <mat-table userTable [dataSource]="dataSource" matSort matSortActive="displayName" matSortDirection="asc" [trackBy]="" class="animate" style="min-width: 800px; width: 100%;">
 
+        <!-- name column -->
         <ng-container matColumnDef="displayName" sticky>
           <mat-header-cell *matHeaderCellDef mat-sort-header > Name </mat-header-cell>
           <mat-cell *matCellDef="let user"> {{ user.displayName }} </mat-cell>
         </ng-container>
 
+        <!-- email column -->
         <ng-container matColumnDef="email">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
           <mat-cell *matCellDef="let user"> {{ user.email }} </mat-cell>
         </ng-container>
 
+        <!-- UID column -->
         <!-- <ng-container matColumnDef="uid">
           <mat-header-cell *matHeaderCellDef mat-sort-header> UID </mat-header-cell>
           <mat-cell *matCellDef="let user"> {{ user.uid }} </mat-cell>
         </ng-container> -->
 
+        <!-- role column -->
         <ng-container matColumnDef="role">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
           <mat-cell *matCellDef="let user">
 
-            <span style="display: inline-block; padding: .1em;
+            <!-- <span style="display: inline-block; padding: .1em;
           /* font-size: 75%; */ font-weight: 700;
           /* line-height: 1; */ 
           text-align: center; 
@@ -50,7 +56,13 @@
               [ngStyle]="user.role=='Role Not Set' ? {'background-color':'#dc3545'} : {'background-color': '#007bff'}">
 
 
-              {{ user.role.toUpperCase()}}</span>
+              {{ user.role.toUpperCase()}}</span> -->
+
+              <mat-chip-list>
+
+                <!-- set the color of the chip based on role, red if the role is not set -->
+                <mat-chip [color]="user.role === 'Role Not Set' ? 'warn' : 'accent' " selected="true">{{ user.role.toUpperCase() }}</mat-chip>
+              </mat-chip-list>
 
           </mat-cell>
         </ng-container>
@@ -58,9 +70,9 @@
 
 
 
-
+        <!-- action column -->
         <ng-container matColumnDef="edit">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
           <mat-cell *matCellDef="let user">
             <button mat-button color="accent" (click)="openUserDialog(user)">
               <mat-icon>edit</mat-icon>Edit User
@@ -74,11 +86,9 @@
           </mat-cell>
         </ng-container>
 
-
+        <!-- enable sticky -->
         <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;" class="animate"></mat-row>
-
-
 
       </mat-table>
     </div>
