@@ -36,7 +36,7 @@
 
       <ng-container matColumnDef="isScratched">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-        <mat-cell *matCellDef="let nomination"> {{ nomination.isScratched ? "Scrateched" : "Not Scratched" }} </mat-cell>
+        <mat-cell *matCellDef="let nomination"> {{ nomination.isScratched ? "Scrateched" : "" }} </mat-cell>
       </ng-container>
 
  
