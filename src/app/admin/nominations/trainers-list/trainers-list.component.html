@@ -1,1 +1,20 @@
-<p>trainers-list works!</p>
+<mat-table userTable [dataSource]="dataSource" matSort matSortActive="displayName" matSortDirection="asc" [trackBy]="" class="animate" style="min-width: 800px; width: 100%;">
+      
+    <!-- name column -->
+    <ng-container matColumnDef="name" sticky>
+      <mat-header-cell *matHeaderCellDef mat-sort-header > Trainer </mat-header-cell>
+      <mat-cell *matCellDef="let entry"> {{ entry.name }} </mat-cell>
+    </ng-container>
+    
+    <!-- count column -->
+    <ng-container matColumnDef="count">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Count </mat-header-cell>
+      <mat-cell *matCellDef="let entry"> {{ entry.count }} </mat-cell>
+    </ng-container>
+
+      
+      <!-- enable sticky -->
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" class="animate"></mat-row>
+      
+    </mat-table>
