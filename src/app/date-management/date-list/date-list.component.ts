@@ -307,7 +307,7 @@ export class DateListComponent implements AfterViewInit {
 
   //navigates to the all nominations page with the relevant trial ID
   viewNominationsForTrial(id: number) {
-    this.router.navigate(['/admin/all-nominations'], { 
+    this.router.navigate(['/admin/nominations'], { 
       queryParams: { trialID: id }
     })
   }
