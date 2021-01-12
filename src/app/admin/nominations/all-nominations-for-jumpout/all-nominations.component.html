@@ -1,6 +1,6 @@
-<p>all-nominations works!</p>
+<!-- <p>all-nominations works!</p>
 
-<h2 *ngIf="this.associatedTrialMeeting != null">For trial meeting located at {{this.associatedTrialMeeting.location}} on the date of {{this.associatedTrialMeeting.date | date: 'dd MMM yyyy'}}</h2>
+<h2 *ngIf="this.associatedTrialMeeting != null">For trial meeting located at {{this.associatedTrialMeeting.location}} on the date of {{this.associatedTrialMeeting.date | date: 'dd MMM yyyy'}}</h2> -->
 
 <mat-table #table [dataSource]="dataSource" matSort [trackBy]="trackByUid" class="animate">
   
@@ -26,7 +26,7 @@
 
       <ng-container matColumnDef="jockey">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Jockey </mat-header-cell>
-        <mat-cell *matCellDef="let nomination"> {{ nomination.jockey }} </mat-cell>
+        <mat-cell *matCellDef="let nomination"> {{ nomination.jockey == "NA" ? "" : nomination.jockey }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="trainer">
@@ -35,11 +35,11 @@
       </ng-container>
 
       <ng-container matColumnDef="isScratched">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Scratched </mat-header-cell>
-        <mat-cell *matCellDef="let nomination"> {{ nomination.isScratched }} </mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+        <mat-cell *matCellDef="let nomination"> {{ nomination.isScratched ? "Scrateched" : "Not Scratched" }} </mat-cell>
       </ng-container>
 
-
+ 
       <!-- <ng-container matColumnDef="trainer">
         <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
         <mat-cell *matCellDef="let nomination"> {{ nomination.nominationID }} </mat-cell>

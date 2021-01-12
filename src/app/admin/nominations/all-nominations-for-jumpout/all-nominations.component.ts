@@ -22,14 +22,15 @@ import * as _ from 'lodash';
 // import { trialMeeting } from '../trialMeeting.model'
 
 //import the trial date database service
-import { NominationDatabaseService } from '../../services/nominate-db.service';
-import { TrialDateDatabaseService } from '../../date-management/trial-date-database.service';
-import { Nomination } from '../../nominate/nomination.model';
+import { NominationDatabaseService } from '../../../services/nominate-db.service';
+import { TrialDateDatabaseService } from '../../../date-management/trial-date-database.service';
+import { Nomination } from '../../../nominate/nomination.model';
 
 import { ActivatedRoute } from '@angular/router';
 import { trialMeeting } from 'src/app/date-management/trialMeeting.model';
 
-import { nominationTrainerMeeting } from './../../data models/nominationTrainerMeeting';
+import { nominationTrainerMeeting } from '../../../data models/nominationTrainerMeeting';
+import { User } from 'src/app/data models/user.model';
 //import 'rxjs/add/operator/filter';
 
 
@@ -47,7 +48,7 @@ import { nominationTrainerMeeting } from './../../data models/nominationTrainerM
 export class AllNominationsComponent implements OnInit {
 
   //column names for table
-  displayedColumns = ['id', 'horseName', 'horseClass', 'horseAge', 'jockey', 'trainer', 'isScratched'];
+  displayedColumns = ['horseName', 'horseClass', 'horseAge', 'jockey', 'trainer', 'isScratched'];
 
   //table datasource
   dataSource: MatTableDataSource<nominationTrainerMeeting>;
@@ -94,6 +95,42 @@ export class AllNominationsComponent implements OnInit {
 
         //trial meetings
         nominations => {
+
+          // let v = _(nominations)
+          // .chain()
+          // .groupBy(nominations[0].user.name)
+          // .value()
+
+          // var result = _.countBy(nominations, 'NominationTrainerMeeting.user.name')
+
+          // console.log(result)
+
+          var result: trainerAndCount[] = _(nominations)
+          .groupBy('user.name')
+          .mapValues((item, name) => {
+            // return _.countBy(item, 'trialDate')
+            return {name: name, count: item.length}
+          })
+
+          // .map(function(item, itemID) {
+          //   var obj = {};
+          //   obj[itemID] = _.countBy(item)
+          //   return obj
+          // })
+          .valuesIn()
+          .value()
+
+
+
+          
+
+          
+
+          console.log(result);
+          console.log(result[0]);
+          
+          
+        
   
         //set the datasource for table to the trial meeting array that is returned
         this.dataSource = new MatTableDataSource(nominations);
@@ -124,6 +161,9 @@ export class AllNominationsComponent implements OnInit {
 
         //trial meetings
         nominations => {
+
+          
+          
   
         //set the datasource for table to the trial meeting array that is returned
         this.dataSource = new MatTableDataSource(nominations);
@@ -144,5 +184,10 @@ export class AllNominationsComponent implements OnInit {
     return item.id;
   }
 
+}
+
+interface trainerAndCount {
+  name: String;
+  count: Number;
 }
 
