@@ -11,14 +11,16 @@ import {  MatSortModule } from "@angular/material/sort";
 import {MatSelectModule} from '@angular/material/select';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
-import { AllNominationsComponent } from './all-nominations/all-nominations.component';
+import { AllNominationsComponent } from './nominations/all-nominations-for-jumpout/all-nominations.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 
 import { UserDialogComponent } from "./user-management/dialogs/user-dialog.component";
+import { NominationsComponent } from './nominations/nominations.component';
+import { TrainersListComponent } from './nominations/trainers-list/trainers-list.component';
 
 
 @NgModule({
-  declarations: [AdminPageComponent, AllNominationsComponent, UserManagementComponent, UserDialogComponent],
+  declarations: [AdminPageComponent, AllNominationsComponent, UserManagementComponent, UserDialogComponent, NominationsComponent, TrainersListComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
