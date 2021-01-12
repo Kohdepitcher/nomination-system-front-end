@@ -153,6 +153,27 @@ export class NominationDatabaseService {
   
     }
 
+    getTrainersAnNominationCount(meetingID: number) {
+
+      let params = new HttpParams();
+      params = params.append('meetingID', meetingID.toString())
+
+      return this.http.get<trainerAndCount[]>(`${this.nominationPath}/group-trainers-count/${meetingID}`,
+      {params: params}).pipe(
+
+        catchError(errorResponse => {
+          return throwError(errorResponse)
+        })
+      )
+
+    }
 
 
+
+}
+
+
+export interface trainerAndCount {
+  name: String;
+  count: Number;
 }
