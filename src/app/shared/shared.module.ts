@@ -29,6 +29,8 @@ import { MatNativeDateModule } from '@angular/material';
 
 import { MatChipsModule } from "@angular/material/chips";
 
+import { MatTabsModule } from '@angular/material/tabs';
+
 // import { SubmitNominationsComponent } from './dialogs/dialogs//submit-nominations.component';
 
 // import {MatIconRegistry} from '@angular/material/icon';
@@ -56,7 +58,8 @@ const modules = [
   MatNativeDateModule,
   MatGridListModule,
   MatChipsModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatTabsModule
   //MatIconRegistry,
 ];
 
