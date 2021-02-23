@@ -83,22 +83,42 @@ export class AuthService {
   // }
 
     // Send email verfificaiton when new user sign up
-    // SendVerificationMail() {
-    //   return this.afAuth.auth.currentUser.sendEmailVerification()
-    //   .then(() => {
-    //     this.router.navigate(['verify-email-address']);
-    //   })
-    // }
+    SendVerificationMail() {
+      return this.afAuth.auth.currentUser.sendEmailVerification()
+      // .then(() => {
+      //   this.router.navigate(['verify-email-address']);
+      // })
+    }
 
      // Reset Forggot password
-  // ForgotPassword(passwordResetEmail) {
-  //   return this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail)
-  //   .then(() => {
-  //     window.alert('Password reset email sent, check your inbox.');
-  //   }).catch((error) => {
-  //     window.alert(error)
-  //   })
-  // }
+  ForgotPassword(passwordResetEmail) {
+    return this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail)
+    .then(() => {
+      window.alert('Password reset email sent, check your inbox.');
+    }).catch((error) => {
+      window.alert(error)
+    })
+  }
+
+  //update the user's details
+  updateUserData(name: string, email: string) {
+
+    var currentUser = this.afAuth.auth.currentUser
+
+    currentUser.updateProfile({
+      displayName: name
+    }).then(() => {
+      localStorage.setItem('user', JSON.stringify(currentUser));
+    }).catch((error) => {
+      window.alert(error)
+    })
+
+    currentUser.updateEmail(email).then(() => {
+      localStorage.setItem('user', JSON.stringify(currentUser));
+    }).catch((error) => {
+      window.alert(error)
+    })
+    };
 
     // Returns true when user is looged in and email is verified
     get isLoggedInAndVerified(): boolean {
@@ -120,6 +140,19 @@ export class AuthService {
       return JSON.parse(localStorage.getItem('role'));
     }
 
+    get prettyUserRole(): string {
+      //get user from local storage
+      const role: string = JSON.parse(localStorage.getItem('role'));
+
+      if (role.includes("admin")) {
+        return "Admin"
+      }
+
+      else if (role.includes("user")) {
+        return "Trainer"
+      }
+    }
+
     get isUserAdmin(): boolean {
       const role = JSON.parse(localStorage.getItem('role'));
       return (role !== null && role == "admin") ? true : false;
@@ -136,7 +169,7 @@ export class AuthService {
       const user = JSON.parse(localStorage.getItem('user'));
       
       //get a reference to the user's display name
-      const userName = user.displayName;
+      const userName = user.displayName || "";
 
       //create a names array which is the display name split by a space character
       const names: [String] = userName.split(' ');
@@ -154,6 +187,22 @@ export class AuthService {
 
       //return the user's initials to be displayed
       return initials;
+    }
+
+    get userName(): String {
+      //get user from local storage
+      const user = JSON.parse(localStorage.getItem('user'));
+      
+      return user.displayName;
+    }
+
+    get userEmail(): String {
+
+      //get user from local storage
+      const user = JSON.parse(localStorage.getItem('user'));
+      
+      return user.email;
+
     }
 
   
