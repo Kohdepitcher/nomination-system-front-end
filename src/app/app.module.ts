@@ -23,20 +23,21 @@ import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './components/footer/footer.component';
 
 import { AdminGuard } from "./user/admin.guard";
+import { UserAccountComponent } from './user-account/user-account.component';
 
 
+import { USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/auth';
+import { USE_EMULATOR as USE_DATABASE_EMULATOR } from '@angular/fire/database';
+import { USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/firestore';
+import { USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/functions';
 
-
-
-//import { DateListComponent} from './date-management/date-list/date-list.component';
-
-// import { DateListPageComponent } from './trial-date-management/date-list-page/date-list-page.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     FooterComponent,
+    UserAccountComponent,
    
 
 
@@ -58,7 +59,11 @@ import { AdminGuard } from "./user/admin.guard";
   providers: [
     AuthTokenHttpInterceptorProvider,
     LoaderInterceptorProvider,
-    AdminGuard
+    AdminGuard,
+    { provide: USE_AUTH_EMULATOR, useValue: environment.useEmulators ? ['localhost', 9099] : undefined },
+    { provide: USE_DATABASE_EMULATOR, useValue: environment.useEmulators ? ['localhost', 9000] : undefined },
+    { provide: USE_FIRESTORE_EMULATOR, useValue: environment.useEmulators ? ['localhost', 8080] : undefined },
+    { provide: USE_FUNCTIONS_EMULATOR, useValue: environment.useEmulators ? ['localhost', 5001] : undefined },
   ],
   bootstrap: [AppComponent],
   entryComponents: []
