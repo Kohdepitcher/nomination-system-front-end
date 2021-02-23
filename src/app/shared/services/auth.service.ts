@@ -84,7 +84,11 @@ export class AuthService {
 
     // Send email verfificaiton when new user sign up
     SendVerificationMail() {
-      return this.afAuth.auth.currentUser.sendEmailVerification()
+      return this.afAuth.currentUser.then((user) => {
+        return user.sendEmailVerification()
+      })
+
+  
       // .then(() => {
       //   this.router.navigate(['verify-email-address']);
       // })
@@ -92,7 +96,7 @@ export class AuthService {
 
      // Reset Forggot password
   ForgotPassword(passwordResetEmail) {
-    return this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail)
+    return this.afAuth.sendPasswordResetEmail(passwordResetEmail)
     .then(() => {
       window.alert('Password reset email sent, check your inbox.');
     }).catch((error) => {
@@ -103,21 +107,28 @@ export class AuthService {
   //update the user's details
   updateUserData(name: string, email: string) {
 
-    var currentUser = this.afAuth.auth.currentUser
+    var currentUser = this.afAuth.currentUser.then((user) => {
+      
+      user.updateProfile({
+        displayName: name
+      }).then(() => {
+        localStorage.setItem('user', JSON.stringify(currentUser));
+      }).catch((error) => {
+        window.alert(error)
+      })
 
-    currentUser.updateProfile({
-      displayName: name
-    }).then(() => {
-      localStorage.setItem('user', JSON.stringify(currentUser));
-    }).catch((error) => {
-      window.alert(error)
+      user.updateEmail(email).then(() => {
+        localStorage.setItem('user', JSON.stringify(currentUser));
+      }).catch((error) => {
+        window.alert(error)
+      })
+
+
     })
 
-    currentUser.updateEmail(email).then(() => {
-      localStorage.setItem('user', JSON.stringify(currentUser));
-    }).catch((error) => {
-      window.alert(error)
-    })
+    
+
+    
     };
 
     // Returns true when user is looged in and email is verified
@@ -244,7 +255,7 @@ export class AuthService {
 
   // Sign out 
   SignOut() {
-    return this.afAuth.auth.signOut().then(() => {
+    return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
       localStorage.removeItem('role');
       this.router.navigate(['login']);
