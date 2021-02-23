@@ -123,7 +123,7 @@ export class EmailLoginComponent implements OnInit {
 
     try {
       if (this.isLogin) {
-        await this.afAuth.auth.signInWithEmailAndPassword(email, password)
+        await this.afAuth.signInWithEmailAndPassword(email, password)
         .then((result) => {
           this.router.navigate([this.redirectURL]);
           this.redirectURL = null;
@@ -134,7 +134,7 @@ export class EmailLoginComponent implements OnInit {
       if (this.isSignup) {
 
         //create the user with email and password
-        await this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(() => {
+        await this.afAuth.createUserWithEmailAndPassword(email, password).then(() => {
 
           //update the user record with their name
           this.httpService.setUpAfterSignup(name).subscribe(() => {
@@ -164,7 +164,7 @@ export class EmailLoginComponent implements OnInit {
       }
       
       if (this.isPasswordReset) {
-        await this.afAuth.auth.sendPasswordResetEmail(email);
+        await this.afAuth.sendPasswordResetEmail(email);
         this.serverMessage = 'Check your email';
       }
     } catch (err) {
