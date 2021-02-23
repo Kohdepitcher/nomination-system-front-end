@@ -17,7 +17,7 @@ import { AFUser } from '../data models/AFUser.model';
 
 export class UserManagementDBService {
 
-  APIPath: string = 'http://localhost:5000/rjc-trial-nominations/us-central1/api/users'
+  APIPath: string = 'http://localhost:5001/rjc-trial-nominations/us-central1/api/users'
 
   // constructor( private db: AngularFirestore) { }
   constructor (private http: HttpClient) {
@@ -110,6 +110,30 @@ export class UserManagementDBService {
 
     //patch the user with specificed ID
     return this.http.patch<AFUser>(`${this.APIPath}/${userID}`,
+      patchUser,
+      {
+        observe: 'response'
+      }
+    )
+
+      // .subscribe(
+      //   responseData => {
+      //     console.log(responseData);
+      //   },
+      //   error => {
+      //     //this.error.next(error.message);
+      //   }
+      // );
+
+  }
+
+  setUpAfterSignup(name: string) {
+
+    //init a user
+    const patchUser: AFUser = { displayName: name }
+
+    //patch the user with specificed ID
+    return this.http.patch<AFUser>(`${this.APIPath}/patch_after_signup/`,
       patchUser,
       {
         observe: 'response'
