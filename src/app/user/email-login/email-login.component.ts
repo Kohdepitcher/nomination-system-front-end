@@ -10,6 +10,7 @@ import {Router, ActivatedRoute} from '@angular/router'
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from '../../shared/services/auth.service'
+import { UserManagementDBService } from '../../services/user-management-db.service'
 
 @Component({
   selector: 'app-email-login',
@@ -18,7 +19,7 @@ import { AuthService } from '../../shared/services/auth.service'
 })
 export class EmailLoginComponent implements OnInit {
 
-  //redirect URK
+  //redirect URL
   redirectURL: string = "";
 
   //collection of form elements
@@ -34,7 +35,7 @@ export class EmailLoginComponent implements OnInit {
   serverMessage: string;
 
   //constructer
-  constructor(private afAuth: AngularFireAuth, private fb: FormBuilder, private db: AngularFirestore, private authService: AuthService, private router: Router, private route: ActivatedRoute) {}
+  constructor(private afAuth: AngularFireAuth, private fb: FormBuilder, private db: AngularFirestore, private authService: AuthService, private router: Router, private route: ActivatedRoute, private httpService: UserManagementDBService) {}
 
   ngOnInit() {
 
@@ -44,6 +45,9 @@ export class EmailLoginComponent implements OnInit {
 
     //set the form (form group) to contain a group of fields
     this.form = this.fb.group({
+
+      //name field validator
+      name:['', [Validators.required]],
 
       //email field validators
       email: ['', [Validators.required, Validators.email]],
@@ -80,6 +84,10 @@ export class EmailLoginComponent implements OnInit {
   }
 
   //getters to get form elements from the form
+  get name() {
+    return this.form.get('name')
+  }
+
   get email() {
     return this.form.get('email');
   }
@@ -111,6 +119,7 @@ export class EmailLoginComponent implements OnInit {
 
     const email = this.email.value;
     const password = this.password.value;
+    const name = this.name.value;
 
     try {
       if (this.isLogin) {
@@ -120,10 +129,40 @@ export class EmailLoginComponent implements OnInit {
           this.redirectURL = null;
         })
       }
+
+      //if the form is for signing up
       if (this.isSignup) {
-        await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+
+        //create the user with email and password
+        await this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(() => {
+
+          //update the user record with their name
+          this.httpService.setUpAfterSignup(name).subscribe(() => {
+
+            //if successful, navigate to the jumpout list page
+            this.router.navigate([this.redirectURL]);
+            this.redirectURL = null;
+
+          }, error => {
+            this.serverMessage = error
+            window.alert(error.message)
+          })
+
+          // this.afAuth.auth.currentUser.updateProfile({
+          //   displayName: name
+          // }).then(() => {
+
+          //   this.router.navigate([this.redirectURL]);
+          //   this.redirectURL = null;
+
+          // }).catch((error) => {
+          //   window.alert(error)
+          // })
+
+        })
         
       }
+      
       if (this.isPasswordReset) {
         await this.afAuth.auth.sendPasswordResetEmail(email);
         this.serverMessage = 'Check your email';
