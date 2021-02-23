@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DateMessageDialogComponent } from './date-message-dialog.component';
 
@@ -6,7 +6,7 @@ describe('DateMessageDialogComponent', () => {
   let component: DateMessageDialogComponent;
   let fixture: ComponentFixture<DateMessageDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ DateMessageDialogComponent ]
     })
