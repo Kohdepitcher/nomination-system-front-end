@@ -1,0 +1,68 @@
+<h3 mat-subheader style="margin: 0; margin-left: 0.5em; padding-top: 3em;padding-bottom: 0.1em;">{{ authService.prettyUserRole }}</h3>
+<h2 class="mat-display-2" style="margin: 0; margin-left: 0.5em; padding-bottom: 0.5em;">{{ authService.userName }}</h2>
+
+<mat-tab-group mat-align-tabs="start">
+
+    <!-- All nominations component -->
+    <mat-tab label="Account Information">
+
+        <div *ngIf="!authService.isEmailVerified" class="user-account-section">
+
+            <div class="section-header">
+                <h3>Email Verification</h3>
+            </div>
+
+            <div class="section-content">
+                <p>{{ authService.userEmail }}</p>
+                <p md-colors="{color:'primary'}">Your email has not been verified</p>
+            </div>
+
+            
+
+            <button mat-raised-button color="accent" class="section-button" (click)="authService.SendVerificationMail()">Re-send Verification Email</button>
+            
+            
+
+            <mat-divider></mat-divider>
+        </div>
+
+        <div class="user-account-section">
+
+            <div class="section-header">
+                <h3>My Details</h3>
+            </div>
+
+            <div class="section-content">
+                <p>{{ authService.userName }}</p>
+                <p>{{ authService.userEmail }}</p>
+            </div>
+            
+            <button mat-raised-button color="accent" class="section-button">Edit Details</button>
+
+            <mat-divider></mat-divider>
+        </div>
+
+        <div class="user-account-section">
+
+            <div class="section-header">
+                <h3>Reset Password</h3>
+            </div>
+
+            <div class="section-content">
+                <p>This will send a password reset email to: {{ authService.userName }}</p>
+            </div>
+            
+            <button mat-raised-button color="warn" class="section-button" (click)="authService.ForgotPassword(authService.userEmail)">Reset Password</button>
+
+            <mat-divider></mat-divider>
+        </div>
+
+        
+
+    </mat-tab>
+    <!-- <mat-tab label="Trainers">
+
+    </mat-tab>
+    <mat-tab label="Assign Fields">Content 3</mat-tab> -->
+  </mat-tab-group>
+  
