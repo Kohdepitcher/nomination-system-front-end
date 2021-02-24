@@ -117,9 +117,10 @@ $app-warn:    mat-palette($mat-pink);
    //   }
 
    .card-container {
-      margin-left: 30%; 
-      margin-right: 30%; 
+      margin-left: 3em; 
+      margin-right: 3em; 
       margin-top: 3em;
+      margin-bottom: 3em;
    }
 
    .trainer-nominations-table {
