@@ -73,9 +73,9 @@ export class AdminGuard implements CanActivate {
             if (roles.indexOf(token.claims.role) == -1) {
               
               //navigate back to login screen
-              this.router.navigate(['/login'], { 
-                queryParams: {returnURL: state.url }
-              });
+              // this.router.navigate(['/login'], { 
+              //   queryParams: {returnURL: state.url }
+              // });
               
               //show auth error
               this.snack.authorisedError();
