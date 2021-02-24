@@ -9,6 +9,7 @@ import {
 import { Observable } from 'rxjs';
 import { retry } from 'rxjs/operators';
 
+//number of retries
 export const retryCount = 3;
 
 @Injectable()
