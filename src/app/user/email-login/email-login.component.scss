@@ -1,7 +1,7 @@
 mat-card {
     min-width: 150px;
     max-width: 500px;
-    width: 100%;
+    // width: 100%;
     margin: 0 auto;
   }
   
@@ -27,3 +27,22 @@ input {
   div.mat-form-field-wrapper{
     padding-bottom: 1.15em;
   }
+
+
+
+
+//tablets
+@media screen and (min-width: 600px) {
+    mat-card {
+      width: 100%;
+    }
+}
+
+// desktops
+@media screen and (min-width: 768px) { 
+
+  mat-card {
+    width: 100%;
+  }
+
+}
