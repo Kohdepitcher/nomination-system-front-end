@@ -16,7 +16,9 @@ export const environment = {
   measurementId: "G-GDBGT4CKD2"
   },
 
-  useEmulators: true
+  useEmulators: false,
+
+  apiEndPoint: "http://localhost:5000/rjc-trial-nominations/us-central1/api/"
 };
 
 

@@ -10,5 +10,7 @@ export const environment = {
     messagingSenderId: "371616401513",
     appId: "1:371616401513:web:325bfea0020dd69b537af8",
     measurementId: "G-GDBGT4CKD2"
-    }
+    },
+
+    apiEndPoint: "http://localhost:5000/rjc-trial-nominations/us-central1/api/"
 };
