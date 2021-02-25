@@ -15,12 +15,15 @@ import { AllNominationsComponent } from './nominations/all-nominations-for-jumpo
 import { UserManagementComponent } from './user-management/user-management.component';
 
 import { UserDialogComponent } from "./user-management/dialogs/user-dialog.component";
+import { EditNominationDialogComponent } from "./nominations/all-nominations-for-jumpout/edit-nomination-dialog/edit-nomination-dialog.component";
+
 import { NominationsComponent } from './nominations/nominations.component';
 import { TrainersListComponent } from './nominations/trainers-list/trainers-list.component';
 
 
+
 @NgModule({
-  declarations: [AdminPageComponent, AllNominationsComponent, UserManagementComponent, UserDialogComponent, NominationsComponent, TrainersListComponent],
+  declarations: [AdminPageComponent, AllNominationsComponent, UserManagementComponent, UserDialogComponent, NominationsComponent, TrainersListComponent, EditNominationDialogComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -32,6 +35,6 @@ import { TrainersListComponent } from './nominations/trainers-list/trainers-list
     MatSelectModule,
     MatDialogModule,
   ],
-  entryComponents: [UserDialogComponent]
+  entryComponents: [UserDialogComponent, EditNominationDialogComponent]
 })
 export class AdminModule { }
