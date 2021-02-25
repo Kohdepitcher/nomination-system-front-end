@@ -1,6 +1,8 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 
-import { MatSort, MatTableDataSource, MatTable, DateAdapter} from '@angular/material';
+import { DateAdapter } from '@angular/material/core';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
 
 //import the user database service
 import { UserManagementDBService } from '../../services/user-management-db.service';
