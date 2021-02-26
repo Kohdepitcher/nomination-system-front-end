@@ -1,7 +1,10 @@
 
-<div style="margin-left:1.5em; margin-right:1.5em; margin-top: 1.5em; bottom: 1.5em;">
+<h3 mat-subheader style="margin: 0; margin-left: 0.5em; padding-top: 3em;padding-bottom: 0.1em;">{{ this.remainingTime }}</h3>
+<h2 class="mat-display-2" style="margin: 0; margin-left: 0.5em; padding-bottom: 0.5em;">Nomination for Jump Outs</h2>
+
+<!-- <div style="margin-left:1.5em; margin-right:1.5em; margin-top: 1.5em; bottom: 1.5em;">
     <h1 class="mat-headline" style="font-size: 3.75rem;-webkit-font-smoothing: antialiased; line-height: 3.75rem; font-weight: 300; letter-spacing: -.00833em; text-decoration: inherit; text-transform: inherit;">Nomination for Jump Outs</h1>
-</div>
+</div> -->
 
     
 <!-- trial information & nomination form & nomination table cards container -->
@@ -38,32 +41,36 @@
     <!--  -->
     <form [formGroup] = "entryForm"  (ngSubmit)="addHorseEntry()">
 
-        <!-- Trainer section -->
+        <!-- Jumpout Information section -->
         <div class="mat-elevation-z8" style="padding: 1em;">
 
-            <h2 class="mat-h2">Jumpout Information</h2>
+          <h2>Jumpout Information</h2>
 
-            <h3  class="mat-h3" id="dateLabel">  <mat-icon color="accent">date_range</mat-icon> Scheduled for {{this.selectedTrialMeeting.date | date: 'dd MMM yyyy'}}</h3>
+            <h3  class="mat-h3" id="dateLabel">  <mat-icon>date_range</mat-icon> Scheduled for {{this.selectedTrialMeeting.date | date: 'dd MMM yyyy'}}</h3>
+            <h3  class="mat-h3" id="dateLabel">  <mat-icon>directions_run</mat-icon> Distance {{this.selectedTrialMeeting.distance }}</h3>
             <h3  class="mat-h3" id="dateLabel"> <mat-icon>location_on</mat-icon> Located at {{this.selectedTrialMeeting.location}}</h3>
-            <h3  class="mat-h3" id="dateLabel"> <mat-icon>access_time</mat-icon> Closes at {{this.selectedTrialMeeting.closeDate | date: 'dd MMM yyyy'}}</h3>
-            <h3  class="mat-h3" id="dateLabel"> <mat-icon>timer</mat-icon> {{this.remainingTime}}</h3>
+            <h3  class="mat-h3" id="dateLabel"> <mat-icon>access_time</mat-icon> Closes at {{this.selectedTrialMeeting.closeDate | date: 'dd MMM yyyy, h:mm a'}}</h3>
+            <!-- <h3  class="mat-h3" id="dateLabel"> <mat-icon>timer</mat-icon> {{this.remainingTime}}</h3> -->
 
-            <!-- <mat-form-field style="width: 100%;margin-bottom: 1em;">
-              <mat-label>Trial Meeting</mat-label>
-              <mat-select [(value)] = "selectedTrialMeeting">
-                <mat-option *ngFor="let trial of upcomingMeetings" [value]="trial">
-                  {{trial.date | date: 'dd MMM yyyy'}} - {{trial.location}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+        </div>
 
-            <mat-form-field>
-                <input 
-                matInput
-                formControlName='trainer'
-                type="text"
-                placeholder="Trainer's Name">
-              </mat-form-field> -->
+        <!-- Trainer selection section -->
+        <div class="mat-elevation-z8" style="padding: 1em;">
+
+          <h2>Trainer</h2>
+
+          <p>A trainer must have their own user account before they can be selected for nominations</p>
+          <p>If a trainer does not have one, an account can be created for them under <b>User Management</b></p>
+
+          <mat-form-field
+            style="width: 100%;margin-bottom: 1em;">
+                <mat-label>Select Trainer</mat-label>
+                <mat-select [(value)] = "selectedTrainer">
+                  <mat-option *ngFor="let trainer of trainerList" [value]="trainer">
+                    {{trainer.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
 
         </div>
 
@@ -117,8 +124,7 @@
                     {{class.viewValue}}
                   </mat-option>
                 </mat-select>
-              </mat-form-field
-              >
+              </mat-form-field>
 
               <button mat-raised-button color="accent" type="submit">
                 Add Entry
@@ -190,23 +196,5 @@
         </div>
 
       </form>
-
-      <div class="mat-elevation-z8" style="padding: 1em; margin: 1em;">
-        <h2>Upcoming Trials</h2>
-    
-          <div  *ngIf="upcomingMeetings" style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
-            <mat-card *ngFor="let trial of upcomingMeetings" class="example-card" style="flex: 0 0 auto; margin-right: 1em;">
-              <mat-card-header>
-                <mat-card-title><mat-icon>date_range</mat-icon>{{trial.date | date: 'dd MMM yyyy'}}</mat-card-title>
-                <mat-card-subtitle><mat-icon>location_on</mat-icon>{{trial.location}}</mat-card-subtitle>
-              </mat-card-header>
-    
-              <!-- <mat-card-content>
-                <h3><mat-icon>date_range</mat-icon>{{trial.date | date: 'dd MMM yyyy'}}</h3>
-                <h3><mat-icon>location_on</mat-icon>{{trial.location}}</h3>
-              </mat-card-content> -->
-            </mat-card>
-          </div>
-        </div>
     
 </div>
