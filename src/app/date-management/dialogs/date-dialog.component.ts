@@ -81,7 +81,7 @@ import { trialMeeting } from '../trialMeeting.model';
         </mat-select>
       </mat-form-field>
 
-      <p style="padding-left: 1em;padding-right: 1em;" color="accent"> {{ amPmText }} </p>
+      <!-- <p style="padding-left: 1em;padding-right: 1em;" color="accent"> {{ amPmText }} </p> -->
 
     </div>
 
