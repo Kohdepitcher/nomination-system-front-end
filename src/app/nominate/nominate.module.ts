@@ -7,15 +7,15 @@ import { NominateRoutingModule } from './nominate-routing.module';
 import { NominationPageComponent } from './nomination-page/nomination-page.component';
 import { NominationFormComponent } from './nomination-form/nomination-form.component';
 
-import {MatSelectModule} from '@angular/material/select';
-import {MatTableModule} from '@angular/material/table';
-import {MatCardModule, MatCard} from '@angular/material/card';
-import {MatIconModule} from '@angular/material/icon';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule, MatCard} from '@angular/material/card';
+import { MatIconModule} from '@angular/material/icon';
+import { MatProgressBarModule} from '@angular/material/progress-bar';
 
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 
-import { CountdownModule } from "ng2-date-countdown";
+// import { CountdownModule } from "ng2-date-countdown";
 
 import { HttpClientModule } from '@angular/common/http'
 
@@ -35,7 +35,7 @@ import { SubmitNominationsComponent } from '../shared/dialogs/submit-nominations
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
-    CountdownModule,
+    
     HttpClientModule,
     MatProgressBarModule
   ],

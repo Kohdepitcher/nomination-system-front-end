@@ -25,11 +25,13 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { MatChipsModule } from "@angular/material/chips";
 
 import { MatTabsModule } from '@angular/material/tabs';
+
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 // import { SubmitNominationsComponent } from './dialogs/dialogs//submit-nominations.component';
 
@@ -59,7 +61,8 @@ const modules = [
   MatGridListModule,
   MatChipsModule,
   MatProgressBarModule,
-  MatTabsModule
+  MatTabsModule,
+  MatCheckboxModule
   //MatIconRegistry,
 ];
 

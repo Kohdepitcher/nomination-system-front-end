@@ -2,7 +2,9 @@ import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { Subscription, Observable, interval } from 'rxjs';
 import {trialDate} from '../trialDate.model';
 
-import { MatSort, MatTableDataSource, MatTable, DateAdapter  } from '@angular/material';
+import { DateAdapter } from '@angular/material/core';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 
