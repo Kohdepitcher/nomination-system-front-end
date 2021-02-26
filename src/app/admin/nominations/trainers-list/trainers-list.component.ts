@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSort, MatTableDataSource, MatTable, DateAdapter  } from '@angular/material';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { DateAdapter } from '@angular/material/core';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http'
 
 import { NominationDatabaseService, trainerAndCount } from '../../../services/nominate-db.service';
@@ -10,6 +12,9 @@ import { NominationDatabaseService, trainerAndCount } from '../../../services/no
   styleUrls: ['./trainers-list.component.scss']
 })
 export class TrainersListComponent implements OnInit {
+
+  //set by a parent component
+  @Input('jumpoutID') jumpoutID: number;
 
   //column names
   displayedColumns = [ 'name', 'count'];
@@ -24,7 +29,7 @@ export class TrainersListComponent implements OnInit {
 
   ngOnInit() {
 
-    this.databaseService.getTrainersAnNominationCount(1).subscribe(result => {
+    this.databaseService.getTrainersAnNominationCount(this.jumpoutID).subscribe(result => {
       console.log(result)
 
       this.dataSource = new MatTableDataSource(result);
