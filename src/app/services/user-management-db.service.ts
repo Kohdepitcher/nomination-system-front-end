@@ -17,7 +17,7 @@ import { AFUser } from '../data models/AFUser.model';
 
 export class UserManagementDBService {
 
-  APIPath: string = 'http://localhost:5001/rjc-trial-nominations/us-central1/api/users'
+  APIPath: string = 'http://localhost:5000/rjc-trial-nominations/us-central1/api/'
 
   // constructor( private db: AngularFirestore) { }
   constructor (private http: HttpClient) {
@@ -29,7 +29,7 @@ export class UserManagementDBService {
 
     //return observable containing an array of users
     //parse the json respone into the trial meeting object
-    return this.http.get<AFUser>(`${this.APIPath}`)
+    return this.http.get<AFUser>(`${this.APIPath}users`)
 
       //pipe the data to do any manipulations
       .pipe(
@@ -77,12 +77,20 @@ export class UserManagementDBService {
 
   //get specific user
 
+  //get users for role
+  //returns an array of userWithRole
+  getUsersForRole(role: string) {
+
+    return this.http.get<userWithRole[]>(`${this.APIPath}/users-with-role/${role}`)
+
+  }
+
   //create new user
   createsUser(name: string, email: string) {
 
     const newUser: AFUser = { displayName: name, email: email }
 
-    return this.http.post<AFUser>(`${this.APIPath}`, newUser, { observe: 'response' }).pipe(
+    return this.http.post<AFUser>(`${this.APIPath}users`, newUser, { observe: 'response' }).pipe(
 
         //map the response into an AFUser ob
         map(responseData => {
@@ -91,15 +99,6 @@ export class UserManagementDBService {
 
         })
     )
-
-      // .subscribe(
-      //   responseData => {
-      //     console.log(responseData);
-      //   },
-      //   error => {
-      //     //this.error.next(error.message);
-      //   }
-      // );
   }
 
   //update user
@@ -109,7 +108,7 @@ export class UserManagementDBService {
     const patchUser: AFUser = { displayName: name, email: email, role: role}
 
     //patch the user with specificed ID
-    return this.http.patch<AFUser>(`${this.APIPath}/${userID}`,
+    return this.http.patch<AFUser>(`${this.APIPath}users/${userID}`,
       patchUser,
       {
         observe: 'response'
@@ -127,27 +126,19 @@ export class UserManagementDBService {
 
   }
 
-  setUpAfterSignup(name: string) {
+  //this us used to sign up a new user on the back end
+  signupUser(name: string, email: string, password: string) {
 
-    //init a user
-    const patchUser: AFUser = { displayName: name }
+    //create the body of the response
+    const patchUser = { displayName: name, email: email, password: password}
 
     //patch the user with specificed ID
-    return this.http.patch<AFUser>(`${this.APIPath}/patch_after_signup/`,
+    return this.http.post(`${this.APIPath}users/sign_up`,
       patchUser,
       {
         observe: 'response'
       }
     )
-
-      // .subscribe(
-      //   responseData => {
-      //     console.log(responseData);
-      //   },
-      //   error => {
-      //     //this.error.next(error.message);
-      //   }
-      // );
 
   }
 
@@ -157,5 +148,11 @@ export class UserManagementDBService {
     return this.http.delete(`${this.APIPath}/${userID}`);
 
   }
+}
+
+export interface userWithRole {
+  userID: number
+  name: string,
+  UUID: string
 }
 
