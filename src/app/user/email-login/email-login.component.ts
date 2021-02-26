@@ -11,6 +11,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from '../../shared/services/auth.service'
 import { UserManagementDBService } from '../../services/user-management-db.service'
+import { delay } from 'lodash';
 
 @Component({
   selector: 'app-email-login',
@@ -47,7 +48,7 @@ export class EmailLoginComponent implements OnInit {
     this.form = this.fb.group({
 
       //name field validator
-      name:['', [Validators.required]],
+      name:['', []],
 
       //email field validators
       email: ['', [Validators.required, Validators.email]],
@@ -67,7 +68,24 @@ export class EmailLoginComponent implements OnInit {
 
   //convenience method to change the form depending on the users choice
   changeType(val) {
+
+    //set the form type
     this.type = val;
+
+    //check if the form type is being changed to signip
+    if (val === 'signup') {
+
+      //set the required validator on the name field
+      this.form.get('name').setValidators(Validators.required)
+      console.log("singing up")
+    } 
+    
+    else {
+
+      //otherwise remove the require validator so that it doesnt prevent submit button for sign in
+      this.form.get('name').clearValidators
+    }
+
   }
 
   //getters
@@ -133,33 +151,25 @@ export class EmailLoginComponent implements OnInit {
       //if the form is for signing up
       if (this.isSignup) {
 
-        //create the user with email and password
-        await this.afAuth.createUserWithEmailAndPassword(email, password).then(() => {
+        //create the user account on the back end
+        this.httpService.signupUser(name, email, password).subscribe((user) => {
 
-          //update the user record with their name
-          this.httpService.setUpAfterSignup(name).subscribe(() => {
-
-            //if successful, navigate to the jumpout list page
+          //upon successfull completion, sign in the user with the provided email and password
+          this.afAuth.signInWithEmailAndPassword(email, password).then(() => {
+            
+            //navigate to the trial list page
             this.router.navigate([this.redirectURL]);
             this.redirectURL = null;
-
-          }, error => {
-            this.serverMessage = error
-            window.alert(error.message)
+            
           })
 
-          // this.afAuth.auth.currentUser.updateProfile({
-          //   displayName: name
-          // }).then(() => {
-
-          //   this.router.navigate([this.redirectURL]);
-          //   this.redirectURL = null;
-
-          // }).catch((error) => {
-          //   window.alert(error)
-          // })
-
+        }, error => {
+          
+          //incase of an error, show user the error message
+          this.serverMessage = error.message
+          console.log(error)
         })
+
         
       }
       
