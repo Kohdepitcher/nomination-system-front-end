@@ -22,7 +22,9 @@ export class AuthService {
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
     //subscribe to the afAuth authState observable
+
     this.afAuth.authState.subscribe(user => {
+
 
       //if the user is loggen in
       if (user) {
@@ -34,8 +36,11 @@ export class AuthService {
         user.getIdTokenResult().then((token) => {
 
           //set the role on the user data holder to the role from the token claims
-          //this.userData.role = token.claims.role
-          localStorage.setItem('role', JSON.stringify(token.claims.role))
+          if (token.claims.role == undefined || token.claims.role == null) {
+            localStorage.setItem('role', JSON.stringify('user'))
+          } else {
+            localStorage.setItem('role', JSON.stringify(token.claims.role))
+          }
         })
 
         //console.log(this.userData.role)
@@ -51,7 +56,7 @@ export class AuthService {
 
         //set the user in local storage to null
         localStorage.setItem('user', null);
-        JSON.parse(localStorage.getItem('user'));
+        // JSON.parse(localStorage.getItem('user'));
       }
     })
   }
@@ -217,11 +222,6 @@ export class AuthService {
     }
 
   
-
-  // Sign in with Google
-  // GoogleAuth() {
-  //   return this.AuthLogin(new auth.GoogleAuthProvider());
-  // }  
 
   // Auth logic to run auth providers
   // AuthLogin(provider) {
