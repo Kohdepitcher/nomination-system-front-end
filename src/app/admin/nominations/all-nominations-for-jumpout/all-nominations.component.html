@@ -46,14 +46,14 @@
       </ng-container> -->
 
 
-    <!-- <ng-container matColumnDef="edit">
+    <ng-container matColumnDef="edit">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
-        <mat-cell *matCellDef="let trialDate"> 
-          <button mat-button  color="primary" (click)="openTrialDialog(trialDate)"><mat-icon>edit</mat-icon>Edit</button> 
-          <button mat-button  color="warn" (click)="handleDelete(trialDate.meetingId)"><mat-icon>delete</mat-icon>Delete</button>
+        <mat-cell *matCellDef="let nomination"> 
+          <button mat-button  color="accent" (click)="openEditNominationDialog(nomination)" ><mat-icon>edit</mat-icon>Edit</button> 
+          <button mat-button  color="warn" ><mat-icon>delete</mat-icon>Delete</button>
         </mat-cell>
         
-    </ng-container> -->
+    </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;" class="animate"></mat-row>
