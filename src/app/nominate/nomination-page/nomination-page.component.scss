@@ -1,11 +1,11 @@
 // Import material theming functions
-@import '~@angular/material/theming';
+// @import '~@angular/material/theming';
 // @import '';
 
 // Copy the palettes from your selected theme (usually theme.scss).
-$app-primary: mat-palette($mat-grey);
-$app-accent:  mat-palette($mat-green, A200, A100, A400);
-$app-warn:    mat-palette($mat-pink);
+// $app-primary: mat-palette($mat-grey);
+// $app-accent:  mat-palette($mat-green, A200, A100, A400);
+// $app-warn:    mat-palette($mat-pink);
 
 .countdown {
     width: 50%;
@@ -18,9 +18,9 @@ $app-warn:    mat-palette($mat-pink);
       // padding: 10px;
    }
 
-   .divider {
-   //  font-size: 30px;
-   }
+   // .divider {
+   // //  font-size: 30px;
+   // }
 }
 
 // .mat-card-header.mat-card-header-text {
@@ -28,7 +28,7 @@ $app-warn:    mat-palette($mat-pink);
 // }
 
 .mat-card:hover {
-   background-color: mat-color($app-accent);
+   // background-color: mat-color($app-accent);
    color: rgba(0, 0, 0, 0.87);
 
    .mat-icon {
