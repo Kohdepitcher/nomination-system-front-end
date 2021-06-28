@@ -85,7 +85,19 @@ export class DateListComponent implements AfterViewInit {
       //set the end date filter to 2 weeks from now
       this.endDate.setDate(this.endDate.getDate() + 14);
 
-      
+      // Testing getting all dates between two dates for a proposed timeline feature
+    //   var start = new Date(2020,11,1);
+    //   var end = new Date(2021,1,28);
+    //   var year = start.getFullYear();
+    //   var month = start.getMonth();
+    //   var day = start.getDate();
+    //   var dates = [start];
+
+    // while(dates[dates.length-1] < end) {
+    //   dates.push(new Date(year, month, ++day));
+    // }
+
+    // console.log(dates)
 
   }
 
